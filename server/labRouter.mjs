@@ -1,12 +1,7 @@
-import * as fs from 'fs/promises';
-import path from 'path';
 import express from 'express';
-import { v4 as uuidv4 } from 'uuid';
-import { dbFetchBlogs, dbAddBlog } from './database.mjs';
+import { dbFetchBlogs, dbAddBlog, dbReset } from './database.mjs';
 import { labs } from './labs.mjs';
 import { returnLab, returnPage } from './utils.mjs';
-
-const __dirname = path.resolve();
 
 const router = express.Router();
 
@@ -60,6 +55,14 @@ router.post('/lab4', async (req, res, next) => {
   }
 });
 
+router.post('/reset', async (req, res, next) => {
+  try {
+    await postReset(req, res);
+  } catch (e) {
+    next(e);
+  }
+});
+
 export default function useLabRouter(app) {
   app.use('/', router);
 }
@@ -78,6 +81,15 @@ async function home(req, res) {
 <ul>
   ${labListItems}
 </ul>
+<br />
+<br />
+${req.query?.reset ? '<p>Database reset successfully!</p>' : ''}
+<form action="/reset" method="POST">
+  <input type="hidden" name="_csrf" value="${req.csrfToken()}"
+  />
+  <input type="submit" value="Reset Database" />
+</form>
+<p>Note: Resetting the database cannot be undone!</p>
     `,
   });
 }
@@ -200,10 +212,6 @@ async function getLab3(req, res, lab) {
 }
 
 async function getLab4(req, res, lab) {
-  // FIXME: Answers
-  // const href = `javascript:var csrf=document.getElementsByName('_csrf')[0].value;alert(csrf)`
-  // const href = `javascript:var _csrf=document.getElementsByName('_csrf')[0].value;alert(_csrf);fetch('/lab4',{method:'POST',body:new URLSearchParams({_csrf,authorName:'Victim',authorWebsite:'http://pwned.com',message:'Click my cool website'})})`;
-
   const blogs = await dbFetchBlogs();
 
   const sanitize = (str) =>
@@ -318,4 +326,10 @@ async function postLab4(req, res, lab) {
   });
 
   return getLab4(req, res, lab);
+}
+
+async function postReset(req, res) {
+  await dbReset();
+
+  return res.redirect(`/?reset=true`);
 }

@@ -37,7 +37,7 @@ The <code>&lt;</code>, <code>&gt;</code>, <code>\\</code> and <code>&quot;</code
       {
         summary: 'Extract CSRF',
         details:
-          'You can get the CSRF token embedded in the page using <code>var csrf=document.getElementsByName(&apos;csrf&apos;)[0].value</code>',
+          'You can get the CSRF token embedded in the page using <code>var csrf=document.getElementsByName(&apos;_csrf&apos;)[0].value</code>',
       },
     ],
   },
