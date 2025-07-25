@@ -1,24 +1,25 @@
 #!/bin/bash
+set -euxo pipefail
 
 # Update system packages
-sudo yum update -y
+sudo dnf update -y
 
 # Install git
-sudo yum install -y git
+sudo dnf install -y git
 
 # Install Node.js (using NodeSource repository for latest LTS)
 curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash -
-sudo yum install -y nodejs
+sudo dnf install -y nodejs
 
 # Install Yarn globally
-npm install -g yarn
+sudo npm install -g yarn
 
 # Setup SSH key for GitHub (assumes key is available in EC2 user data or instance metadata)
 # You may need to configure SSH keys separately for private repo access
 
 # Clone the repository
 cd /home/ec2-user
-git clone git@github.com:repl-richard-leee/reconnect-2025-red-team.git
+sudo git clone https://github.com/repl-richard-leee/reconnect-2025-red-team.git
 
 # Change ownership to ec2-user
 chown -R ec2-user:ec2-user /home/ec2-user/reconnect-2025-red-team

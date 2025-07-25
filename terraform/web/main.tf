@@ -1,21 +1,21 @@
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "amazon_linux_2023" {
   most_recent = true
   owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+    values = ["al2023-ami-*-x86_64"]
   }
 }
 
 resource "aws_instance" "web_server" {
-  ami           = data.aws_ami.amazon_linux.id
+  ami           = data.aws_ami.amazon_linux_2023.id
   instance_type = "t3.micro"
   key_name      = var.ssh_key_name
   
   user_data = file("userdata.sh")
 
-  vpc_security_group_ids = [aws_security_group.sg.id]
+  vpc_security_group_ids = [var.sg_id]
 
   tags = {
     Name = "${var.prefix}-${var.index}"

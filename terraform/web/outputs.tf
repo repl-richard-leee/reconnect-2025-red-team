@@ -18,11 +18,6 @@ output "instance_private_ip" {
   value       = aws_instance.web_server.private_ip
 }
 
-output "security_group_id" {
-  description = "ID of the security group"
-  value       = aws_security_group.sg.id
-}
-
 output "web_server_dns" {
   description = "Internal DNS name of the web server"
   value       = aws_instance.web_server.public_dns

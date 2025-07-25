@@ -18,9 +18,9 @@ output "instance_private_ips" {
   value       = module.web[*].instance_private_ip
 }
 
-output "security_group_ids" {
-  description = "IDs of the security groups"
-  value       = module.web[*].security_group_id
+output "security_group_id" {
+  description = "ID of the security group"
+  value       = aws_security_group.sg.id
 }
 
 output "web_server_dns" {

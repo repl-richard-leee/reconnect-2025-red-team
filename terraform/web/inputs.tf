@@ -26,3 +26,8 @@ variable "ingress_cidr_blocks" {
   description = "CIDR blocks for ingress rules"
   type        = list(string)
 }
+
+variable "sg_id" {
+  description = "Security group ID for the web server"
+  type        = string
+}

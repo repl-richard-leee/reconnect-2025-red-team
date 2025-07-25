@@ -8,4 +8,5 @@ module "web" {
   ingress_cidr_blocks = var.ingress_cidr_blocks
   hosted_zone_id      = var.hosted_zone_id
   hosted_zone_name    = var.hosted_zone_name
+  sg_id               = aws_security_group.sg.id
 }
