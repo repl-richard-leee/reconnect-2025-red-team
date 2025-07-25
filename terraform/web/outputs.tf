@@ -3,6 +3,11 @@ output "instance_id" {
   value       = aws_instance.web_server.id
 }
 
+output "instance_hostname" {
+  description = "Hostname of the EC2 instance"
+  value       = aws_instance.web_server.public_dns
+}
+
 output "instance_public_ip" {
   description = "Public IP address of the EC2 instance"
   value       = aws_instance.web_server.public_ip
@@ -15,5 +20,15 @@ output "instance_private_ip" {
 
 output "security_group_id" {
   description = "ID of the security group"
-  value       = aws_security_group.web_sg.id
+  value       = aws_security_group.sg.id
+}
+
+output "web_server_dns" {
+  description = "Internal DNS name of the web server"
+  value       = aws_instance.web_server.public_dns
+}
+
+output "web_server_dns_record" {
+  description = "DNS record for the web server"
+  value = aws_route53_record.web_record.fqdn
 }

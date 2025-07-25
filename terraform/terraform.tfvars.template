@@ -1,0 +1,5 @@
+instances           = 1
+ssh_key_name        = "reconnect-2025-red-team"
+ingress_cidr_blocks = []
+hosted_zone_id      = 
+hosted_zone_name    =

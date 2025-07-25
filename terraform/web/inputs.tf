@@ -15,11 +15,14 @@ variable "ssh_key_name" {
 variable "hosted_zone_id" {
   description = "The ID of the Route 53 hosted zone"
   type        = string
-  default     = "Z1X6COAMSSU4BO" # pg.replicondev.net
 }
 
 variable "hosted_zone_name" {
   description = "The name of the Route 53 hosted zone"
   type        = string
-  default     = "pg.replicondev.net"
+}
+
+variable "ingress_cidr_blocks" {
+  description = "CIDR blocks for ingress rules"
+  type        = list(string)
 }
